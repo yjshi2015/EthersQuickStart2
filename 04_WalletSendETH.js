@@ -4,7 +4,7 @@
  */
 const ethers = require('ethers');
 
-const ALCHEMY_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
+const ALCHEMY_KEY = '2vsw2JgOxxxxxnL4f88kg5qZ';
 const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_KEY}`);
 
 //一、创建随机私钥的wallet对象

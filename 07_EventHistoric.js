@@ -5,7 +5,7 @@
 
 const ethers = require('ethers');
 
-const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
+const ALCHEMY_SEPOLIA_KEY = '2vswxxxxnL4f88kg5qZ';
 const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
 
 //只需要填入我们关心的event即可

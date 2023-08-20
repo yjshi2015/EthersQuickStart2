@@ -12,7 +12,7 @@
 const ethers = require('ethers');
 
 //一、生成provider
-const ALCHEMY_GOERLI_KEY = 'dTKTdrFoicAZBCIROLne9B8ranAu7foA';
+const ALCHEMY_GOERLI_KEY = 'dTKTdrxxxxnAu7foA';
 const provider = new ethers.JsonRpcProvider(`https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_GOERLI_KEY}`);
 
 //二、生成wallet

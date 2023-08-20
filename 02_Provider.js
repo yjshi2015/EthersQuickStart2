@@ -7,7 +7,7 @@
 
 const ethers = require('ethers');
 //利用infura的rpc节点连接到以太坊网络  todo syj 这行代码不能上传git 
-const INFURA_KEY = 'ab6f690a7abd4c6d836a0454d5112a50';
+const INFURA_KEY = 'ab6f690a7abd4xxxxa50';
 //连接到以太坊主网，infura目前无法连接到主网
 // const providerInfuraETH = new ethers.JsonRpcProvider(`https://mainnet.infura.io/v3/ab6f690a7abd4c6d836a0454d5112a50`);
 const providerInfuraETH = new ethers.JsonRpcProvider(`https://goerli.infura.io/v3/${INFURA_KEY}`);
@@ -15,8 +15,8 @@ const providerInfuraETH = new ethers.JsonRpcProvider(`https://goerli.infura.io/v
 const providerInfuraSepolia = new ethers.JsonRpcProvider(`https://sepolia.infura.io/v3/${INFURA_KEY}`);
 
 // //链接到Alchemy节点服务器  todo syj 这行代码不能上传git 
-const ALCHEMY_KEY = 'y0RKCzMEoalK4m_Txjdhz2_BbEQOZcqH';
-const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
+const ALCHEMY_KEY = 'y0RKCzMEoaxxxxbEQOZcqH';
+const ALCHEMY_SEPOLIA_KEY = '2vsw2xxxxf88kg5qZ';
 const providerAlchemyETH = new ethers.JsonRpcProvider(`https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`);
 const providerAlchemySepolia = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
 

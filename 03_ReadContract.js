@@ -6,7 +6,7 @@
  */
 
 const ethers = require('ethers');
-const ALCHEMY_KEY = 'y0RKCzMEoalK4m_Txjdhz2_BbEQOZcqH';
+const ALCHEMY_KEY = 'y0RKCxxxxx_BbEQOZcqH';
 const provider = new ethers.JsonRpcProvider(`https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`);
 
 //自定义的合约

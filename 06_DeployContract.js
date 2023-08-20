@@ -9,7 +9,7 @@
 
 const ethers = require('ethers');
 //链接节点服务商
-const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
+const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOxxxxf88kg5qZ';
 const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
 
 //生成钱包signer
