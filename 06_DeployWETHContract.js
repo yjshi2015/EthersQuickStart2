@@ -38,8 +38,8 @@ const main = async () => {
     await contractWETH.waitForDeployment();
     console.log(`合约已上链`);
     console.log(`合约地址: ${await contractWETH.getAddress()}`);
-     */
-
+    */
+    
     // WETH合约地址（sepolia测试网）
     const addressWETH = '0x2d0339D0244A0085C1d7398c16449a2d39c97E38';
     // 声明可写合约
