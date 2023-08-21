@@ -15,7 +15,7 @@ const wallet1WithProvider = wallet1.connect(provider);
 const mnemonic = wallet1.mnemonic;
 
 //二、利用私钥和provider创建wallet
-const privateKey = '5f5e109d57e793f4886f4b406b0e013e92c76b0273d3278e8a956af7d877dff0';
+const privateKey = '5f5e109d57e7xxxxx877dff0';
 const wallet2 = new ethers.Wallet(privateKey, provider);
 
 //三、利用助记词创建wallet对象,使用wallet1的助记词，因此创建的钱包公私钥和wallet1相同
