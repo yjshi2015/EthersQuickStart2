@@ -1,15 +1,22 @@
 /**
  * 单位转换
- * 1.根据数值转换，大单位->小单位：ethers.formatUnits(value, unit)
+ * 1.根据数值转换，小单位->大单位：ethers.formatUnits(value, unit)
  *   一步到位，直接转化成ether: ethers.formatEther(oneGwei)
  * 使用场景：钱包转账时，用于机器查看
- * 2.根据字符串转换，小单位->大单位: ethers.parseUnits(value, unit)
+ * 2.根据字符串转换，大单位->小单位: ethers.parseUnits(value, unit)
  *   一步到位，直接转化成wei: ethers.parseEther("1.0").toString()
  * 使用场景：钱包查看时，用于人查看
  * 
  * Note:数值带后缀n会自动转换成BigInt
  */
 const ethers = require('ethers');
+
+console.log(`\n ${ethers.parseEther("0.0001")}`);
+
+//20wei是多少ether
+const twentyWei = ethers.getBigInt("20");
+console.log(ethers.formatEther(twentyWei));
+console.log("\n");
 
 //从十进制字符串生成Bigint
 const oneGwei = ethers.getBigInt("1000000000");

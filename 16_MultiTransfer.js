@@ -9,6 +9,7 @@
  * todo syj
  * 1.获取派生钱包的助记词（用于获取sdz/zrm等钱包助记词）
  * 2.delete private key 和mnenomic
+ * 3. uint(-1)是什么鬼
  */
 
 const ethers = require('ethers');
@@ -18,8 +19,8 @@ const mnemonic = "phrase sword gauge reveal capable subject album noise clever p
 const HDNodeWallet = ethers.HDNodeWallet.fromPhrase(mnemonic);
 console.log(HDNodeWallet);
 
-console.log("\n2.通过HD钱包派生20个钱包");
-const numWallet = 20;
+console.log("\n2.通过HD钱包派生5个钱包");
+const numWallet = 5;
 //派生路径 m / purpose' / coin_type' / account' / change / address_index
 let basePath = "m/44'/60'/0'/0";
 let addresses = [];
@@ -32,7 +33,8 @@ for (let i=0; i<numWallet; i++) {
     console.log(hdNodeNew.mnemonic.phrase);
 }
 console.log(addresses);
-const amounts = Array(20).fill(ethers.parseEther("0.0001"));
+// const oneWei = ethers.getBigInt(1);
+const amounts = Array(5).fill(ethers.parseEther("0.000000000000000001"));
 console.log(`发送数额: ${amounts}`);
 
 console.log("\n3.创建provider和wallet,发送代币用");
@@ -59,6 +61,7 @@ const abiWETH = [
 ];
 const addressWETH = "0xc8ea610ba627aa39dea5c9f8064efadf61a287e0";
 const contractWETH = new ethers.Contract(addressWETH, abiWETH, wallet);
+//在sepolia testnet中直接调用合约write接口，往myAddress账户转入资金
 const myAddress = "0x0fDb1Aa640682e180e5F59D5990D2E7CDc7014dB";
 
 
@@ -70,25 +73,32 @@ const main = async () => {
     const balanceETH = await provider.getBalance(myAddress);
     console.log(`我的账户${myAddress}的ETH余额为 ${ethers.formatEther(balanceETH)}`);
     
-    /**
-    console.log("\n7.调用multiTransferETH函数，给每个钱包转0.0001 ETH");
-    const tx = await contractAirdrop.multiTransferETH(addresses, amounts, {value: ethers.parseEther("0.002")});
+ 
+    console.log("\n7.调用multiTransferETH函数, 给每个钱包转1 wei");
+    //注意：value中传入的钱不能有余数，批量转账总共5wei，那么value就必须是5wei，
+    //如果是10wei，那么就会报estimateGas错误（"Transfer amount error"）,当然这个报错也很有迷惑性
+    //这个是因为multiTransferETH函数自身有个require要求，限制转多少传多少
+    //其实如果没有如上限制，value是可以多传值的
+    const tx = await contractAirdrop.multiTransferETH(addresses, amounts, {value: ethers.parseEther("0.000000000000000005")});
     //等待交易上链
     await tx.wait();
     //交易详情
     console.log(tx);
     const balanceETH2 = await provider.getBalance(addresses[0]);
-    console.log(`发送给钱包${addresses[0]}后，余额为: ${ethers.parseEther(balanceETH2)}`);
-    
-    console.log("\n8.调用multiTransferToken函数，给每个钱包发空投--批量转账")
+    console.log(`发送给钱包${addresses[0].address}后，余额为: ${ethers.formatEther(balanceETH2)}`);
+
+    console.log("\n8.调用multiTransferToken函数,给每个钱包发空投--批量转账")
     const txApprove = await contractWETH.approve(addressAirdrop, ethers.parseEther("1"));
     await txApprove.wait();
-    //发起交易
+    console.log("给addressAirdrop授权完成");
+    //发起交易，注意要保证当前钱包一定要有足够的余额，否则会报estimateGas错误，很有迷惑性，其实是
+    //账户余额不足，而非gas不足
     const tx2 = await contractAirdrop.multiTransferToken(addressWETH, addresses, amounts);
     await tx2.wait();
+    console.log("空投-批量发送代币WETH成功");
     const balanceWETH2 = await contractWETH.balanceOf(addresses[0]);
-    console.log(`空投给钱包${addresses[0]}后，代币余额为: ${ethers.parseEther(balanceWETH2)}`);
-     */
+    console.log(`空投给钱包${addresses[0].address}后，代币余额为: ${ethers.formatEther(balanceWETH2)}`);
+     
 }
 main();
 
