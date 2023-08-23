@@ -9,7 +9,7 @@
  * todo syj
  * 1.获取派生钱包的助记词（用于获取sdz/zrm等钱包助记词）
  * 2.delete private key 和mnenomic
- * 3. uint(-1)是什么鬼
+ * 3. uint(-1)是什么鬼: V8版本中已经增加了语法错误提示，不允许这样搞了
  */
 
 const ethers = require('ethers');
@@ -38,10 +38,10 @@ const amounts = Array(5).fill(ethers.parseEther("0.000000000000000001"));
 console.log(`发送数额: ${amounts}`);
 
 console.log("\n3.创建provider和wallet,发送代币用");
-const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
+const ALCHEMY_SEPOLIA_KEY = '2vswxxxxxxxxxxxxxxxg5qZ';
 const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
 //用privatekey和provider创建wallet钱包，当然钱包要有代币和ETH
-const privateKey = '5f5e109d57e793f4886f4b406b0e013e92c76b0273d3278e8a956af7d877dff0';
+const privateKey = '5f5e109d57e79xxxxxxxxxxxxxxxxxxxxe8a956af7d877dff0';
 const wallet = new ethers.Wallet(privateKey, provider);
 
 console.log("\n4.获取AirDrop合约实例");
