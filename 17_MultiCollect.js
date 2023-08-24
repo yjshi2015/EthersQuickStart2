@@ -69,7 +69,7 @@ const main = async () => {
         //将钱包连接到provider
         let walletWithProvider = wallets[i].connect(provider);
         //将合约连接到新的钱包
-        //钱包就可以跟合约进行交互
+        //交互方式：钱包1 -> 通过合约 -> 钱包2
         let contractConnected = contractWETH.connect(walletWithProvider);
         var tx = await contractConnected.transfer(wallet.address, amount);
         console.log(`第${i+1}个钱包 ${wallets[i].address} WETH归集开始`)
