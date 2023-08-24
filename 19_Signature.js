@@ -18,19 +18,19 @@
  */
 
 const {ethers} = require('ethers');
+const keyConfig = require('./ignore_keyConfig.json');
 const contractJson = require('./19_contract.json');
 
 console.log("\n1.创建provider和wallet");
-const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
-const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
+const provider = new ethers.JsonRpcProvider(keyConfig.RPCProvider['sepolica.testnet']);
 
-const privateKey = '5f5e109d57e793f4886f4b406b0e013e92c76b0273d3278e8a956af7d877dff0';
+const privateKey = keyConfig.syj.privateKey;
 const wallet = new ethers.Wallet(privateKey, provider);
 console.log(`wallet地址: ${wallet.address}`);
 
 console.log("\n2.模拟中心化后端生成消息签名");
 //大壮
-const account = "0xd266Fb4a78bF6C93b6adb9493cd434A7dFA403E1";
+const account = keyConfig.sdz.account;
 const tokenId = 0;
 //等效于solidity中keccak256(abi.encodePacked(account, tokenId))
 const msgHash = ethers.solidityPackedKeccak256(
@@ -47,21 +47,13 @@ const main = async () => {
 
 
     console.log("\n3.利用合约工厂部署合约");
-    // const abiNFT = [
-    //     "constructor(address)",
-    //     "function name() public view returns (string)",
-    //     "function symbol() public view returns (string)",
-    //     "function mint(address, uint256, bytes) external",
-    //     "function ownerOf(uint256) public view returns (address)",
-    //     "function balanceOf(address) public view returns (uint256)",
-    // ];
     const abiNFT = [
-        "constructor(string memory _name, string memory _symbol, address _signer)",
-        "function name() view returns (string)",
-        "function symbol() view returns (string)",
-        "function mint(address _account, uint256 _tokenId, bytes memory _signature) external",
-        "function ownerOf(uint256) view returns (address)",
-        "function balanceOf(address) view returns (uint256)",
+        "constructor(address)",
+        "function name() public view returns (string)",
+        "function symbol() public view returns (string)",
+        "function mint(address, uint256, bytes) external",
+        "function ownerOf(uint256) public view returns (address)",
+        "function balanceOf(address) public view returns (uint256)",
     ];
     //直接使用Remix的bytecode，而不是编译后文件中的object对象，那个字节码有问题
     const bytecodeNFT = contractJson.default.object;
@@ -78,13 +70,12 @@ const main = async () => {
         console.log("合约已上链");
         console.log(`代币名称: ${await contractNFT.name()}`);
         console.log(`代币简称: ${await contractNFT.symbol()}`);
-/**
+
         console.log("\n4.调用mint函数, 利用签名验证白名单,给account账户铸造NFT");
         let tx = await contractNFT.mint(account, tokenId, signature);
         console.log("铸造中,等待交易上链")
         await tx.wait();
         console.log(`铸造成功，地址${account}的NFT余额为${await contractNFT.balanceOf(account)}`)
-*/
     } 
 }
 main()
