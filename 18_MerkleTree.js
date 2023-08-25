@@ -5,8 +5,8 @@
  * 1、在链上存储白名单用户的哈希值root，节省存储空间
  * 2、验证领取NFT的账户是否为白名单账户
  * 
- * todo syj
- * 1.如何找到链上的代币官方地址
+ * question：
+ * 1.如何找到链上的代币官方地址：主网可查到top20的Token和NFT，测试网自己从主网copy、发布，自己玩儿
  * 
  * Note：
  * const MerkleTree = require('merkletreejs') 和 const {MerkleTree} = require('merkletreejs')
@@ -36,7 +36,8 @@ console.log(`默克尔树merkeltree`)
 console.log(`${merkeltree}`)
 const root = merkeltree.getHexRoot();
 console.log(`默克尔树root: ${root}`)
-// todo syj 有没有办法根据address获取proof
+//根据leaf（不是原数据，而是原数据hash后的叶子节点）来获取proof
+// const proof = merkeltree.getHexProof("0x2a2251b5a9499504fd87840ca670425c1d5adc06b2f12ea2156fa43d530616be")
 const proof = merkeltree.getHexProof(leaf[0]);
 console.log(`叶子节点${leaf[0]}: 的proof为: ${proof}`)
 
@@ -73,7 +74,6 @@ const main = async ()=> {
     console.log(`NFT代号: ${await contractNFT.symbol()}`);
 
     console.log("\n4.调用mint函数,利用merkle验证白名单,并给第0个地址铸造NFT");
-    //todo syj 给作者提issue
     let tx = await contractNFT.mint(tokens[0], 0, proof);
     console.log("铸造中，等待交易上链");
     await tx.wait();

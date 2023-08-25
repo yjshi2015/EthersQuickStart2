@@ -5,7 +5,7 @@ const ethers = require('ethers');
 //provider内置的rpc访问速度有限制，仅供测试，生产环境还是要申请个人rpc，比如alchemy平台
 // const provider = new ethers.getDefaultProvider();
 
-const ALCHEMY_MAINNET_URL = 'https://eth-mainnet.g.alchemy.com/v2/y0RKCzMEoalK4m_Txjdhz2_BbEQOZcqH';
+const ALCHEMY_MAINNET_URL = 'https://eth-mainnet.g.alchemy.com/v2/y0RKxxxxxxxxxxxxxxxxxxbEQOZcqH';
 const provider = new ethers.JsonRpcProvider(ALCHEMY_MAINNET_URL);
 
 const main = async () => {

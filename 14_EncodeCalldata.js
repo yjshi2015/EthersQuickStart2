@@ -6,11 +6,11 @@
  */
 
 const ethers = require('ethers');
+const keyConfig = require('./ignore_keyConfig.json');
 
-const ALCHEMAY_GOERLI_KEY = 'dTKTdrFoicAZBCIROLne9B8ranAu7foA';
-const provider = `https://eth-goerli.g.alchemy.com/v2/${ALCHEMAY_GOERLI_KEY}`;
+const provider = new ethers.JsonRpcApiProvider(keyConfig.RPCProvider['goerli.testnet']);
 
-const privateKey = '5f5e109d57e793f4886f4b406b0e013e92c76b0273d3278e8a956af7d877dff0';
+const privateKey = keyConfig.syj.privateKey;
 const wallet = new ethers.Wallet(privateKey, provider);
 const myAddress = wallet.address;
 

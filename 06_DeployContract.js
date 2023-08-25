@@ -13,7 +13,7 @@ const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOxxxxf88kg5qZ';
 const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
 
 //生成钱包signer
-const privateKey = '5f5e109d57e793f4886f4b406b0e013e92c76b0273d3278e8a956af7d877dff0';
+const privateKey = 'xxxxxxxxxxxxxxxxxxxxxxxx';
 const wallet = new ethers.Wallet(privateKey, provider);
 
 //在Remix中生成abi和bytecode

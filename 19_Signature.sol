@@ -36,7 +36,7 @@ library ECDSA{
             r := mload(add(_signature, 0x20))
             // 读取之后的32 bytes
             s := mload(add(_signature, 0x40))
-            // 读取最后一个byte todo syj 待确认
+            // 读取第一个byte
             v := byte(0, mload(add(_signature, 0x60)))
         }
         // 使用ecrecover(全局函数)：利用 msgHash 和 r,s,v 恢复 signer 地址

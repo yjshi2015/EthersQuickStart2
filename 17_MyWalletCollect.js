@@ -7,19 +7,19 @@
  */
 
 const ethers = require('ethers');
+const keyConfig = require('./ignore_keyConfig.json');
 
 console.log("1.创建provider和wallet, 其中wallet是接收资产的钱包");
-const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
-const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
+const provider = new ethers.JsonRpcProvider(keyConfig.RPCProvider['sepolica.testnet']);
 //用privatekey和provider创建wallet钱包，当然钱包要有代币和ETH
-const privateKey = '5f5e109d57e793f4886f4b406b0e013e92c76b0273d3278e8a956af7d877dff0';
+const privateKey = keyConfig.syj.privateKey;
 const wallet = new ethers.Wallet(privateKey, provider);
 
 console.log("\n2.创建sub钱包");
 let wallets = [];
-let subPrivateKey1 = "e11f75abf39b7c8d774be809fe53025fa21ebcbe31192ba3f98065124d00c807";
+let subPrivateKey1 = keyConfig.sdz.privateKey;
 let subWallet1 = new ethers.Wallet(subPrivateKey1, provider);
-let subPrivateKey2 = "58fbd5e0de4617e05b1912526799ebc0c729009ad4f6146227681d1845aac954";
+let subPrivateKey2 = keyConfig.rzm.privateKey;
 let subWallet2 = new ethers.Wallet(subPrivateKey2, provider);
 wallets.push(subWallet1);
 wallets.push(subWallet2);

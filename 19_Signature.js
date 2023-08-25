@@ -13,7 +13,7 @@
  * ②更节省gas，Merkle中如果增加了白名单，需要改root，而这里不需要
  * 
  * todo syj
- * 1.验证JSON格式合约部署码
+ * 1.验证JSON格式合约部署码(failed，但是Remix中部署OK)
  * 2.合约发布失败，不管是Remix的bytecode还是JSON文件，哪怕demo拷贝过来，也是错误百出
  */
 

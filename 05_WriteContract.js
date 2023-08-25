@@ -16,7 +16,7 @@ const ALCHEMY_GOERLI_KEY = 'dTKTdrxxxxnAu7foA';
 const provider = new ethers.JsonRpcProvider(`https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_GOERLI_KEY}`);
 
 //二、生成wallet
-const privateKey = '5f5e109d57e793f4886f4b406b0e013e92c76b0273d3278e8a956af7d877dff0';
+const privateKey = 'xxxxxxxxxxxxxxxxxxxxxxx';
 const wallet = new ethers.Wallet(privateKey, provider);
 
 //三、生成合约

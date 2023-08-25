@@ -10,7 +10,7 @@ const ALCHEMY_KEY = 'y0RKCxxxxx_BbEQOZcqH';
 const provider = new ethers.JsonRpcProvider(`https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`);
 
 //自定义的合约
-const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOi6Hq-6Ky9RvvKnL4f88kg5qZ';
+const ALCHEMY_SEPOLIA_KEY = '2vsw2JgOxxxxxxxxxxxxxxxxxxxxxx8kg5qZ';
 const providerAlchemySepolia = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
 const myabi = '[{"inputs":[],"name":"retrieve","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"store","outputs":[],"stateMutability":"nonpayable","type":"function"}]';
 const myAddress = '0x1a403253f9cE59E918a6C66a94bEFe2D35299600';
