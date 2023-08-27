@@ -1,0 +1,102 @@
+<!--
+ 通过ethers调用小狐狸钱包验签
+
+ ①本地要先安装http-server包：npm install --global http-server
+ ②在项目目录下执行： http-server，启动http服务
+ todo syj
+ 考试、加微信群
+-->
+
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>ethers验签</title>
+</head>
+ <body>
+     <h1 id="header">Sign in with Ethereum</h1>
+     <button class="sign">Sign</button>
+     <h2>钱包地址:<span class="showAccount"></span></h2>
+     <h2>Nonce:<span class="showNonce"></span></h2>
+     <h2>Signature:<span class="showSignature"></span></h2>
+     <h2>是否签名成功:<span class="showSignStatus"></span></h2>
+
+     //Note:要引入并使用ethers，这里必须要设置type=module
+     <script  type="module">
+        import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.2.3/ethers.js";
+        const signButton = document.querySelector('.sign');
+        const showAccount = document.querySelector('.showAccount');
+        const showNonce = document.querySelector('.showNonce');
+        const showSignature = document.querySelector('.showSignature');
+        const showSignStatus = document.querySelector('.showSignStatus');
+
+        signButton.addEventListener(`click`, onClickHandler);
+
+        async function onClickHandler() {
+            console.log(`链接钱包`);
+            //获取provider
+            // const provider = new ethers.Web3Provider(window.ethereum);
+            const provider = new ethers.BrowserProvider(window.ethereum)
+
+            //获取钱包地址
+            const accounts = await provider.send("eth_requestAccounts", []);
+            console.log("accounts到底是啥")
+            console.log(accounts)
+            const account = accounts[0];
+            console.log(`钱包地址:${account}`)
+            showAccount.innerHTML = account;
+
+            //要签名的原始数据，即明文
+            const nonce = auth(account);
+            showNonce.innerHTML = nonce;
+
+            //获取签名
+            const signer = await provider.getSigner()
+            //生成签名，即密文、摘要
+            //ethers封装了生成签名的逻辑
+            const signature = await signer.signMessage(nonce.toString());
+            showSignature.innerHTML = signature;
+
+            //验签
+            const sigStatus = verify(account, signature);
+            showSignStatus.innerHTML = sigStatus;
+        }
+
+        // export const users = {};
+        const users = {};
+        //获取用户的随机数
+        function auth(address) {
+            let user = users[address];
+            if(!user) {
+                user = {
+                    address,
+                    nonce: Math.floor(Math.random() * 1000000)
+                }
+                users[address] = user;
+            } else {
+                const nonce = Math.floor(Math.random() * 1000000)
+                user.nonce = nonce;
+                users[address] = user;
+            }
+            return user.nonce;
+        }
+
+        function verify(address, signature) {
+            let signValid = false;
+            console.log(`address: ${address}`);
+            let nonce = users[address].nonce;
+            console.log(`nonce: ${nonce}`);
+            //验签，根据消息和签名，获取公钥地址
+            //ethers封装了验签的具体逻辑
+            const decodeAddress = ethers.verifyMessage(nonce.toString(), signature.toString());
+            console.log(`decodeAddress: ${decodeAddress}`);
+            if(address.toLowerCase() === decodeAddress.toLowerCase()) {
+                signValid = true;
+                //处于安全原因，更改nonce，防止下次直接使用相同的nonce进行登录
+                users[address].nonce = Math.floor(Math.random() * 1000000);
+            }
+            return signValid;
+        }
+    </script>
+ </body>
+ </html>
