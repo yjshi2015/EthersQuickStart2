@@ -9,9 +9,10 @@
  */
 
 const ethers = require("ethers");
+const keyCongfig = require("./keyConfig_info.json");
 
-const ALCHEMY_SEPOLIA_KEY = 'y0RKCxxxxxxxxxxxEQOZcqH';
-const provider = new ethers.JsonRpcProvider(`https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`);
+const ALCHEMY_SEPOLIA_KEY = keyCongfig.RPCProvider["eth.mainnet"];
+const provider = new ethers.JsonRpcProvider(ALCHEMY_SEPOLIA_KEY);
 
 const abiUSDT = [
     "event Transfer(address indexed from, address indexed to, uint value)"
@@ -29,6 +30,11 @@ const main = async () => {
     console.log('\n2.利用contract.on(),持续监听Transfer事件');
     contractUSDT.on('Transfer', (from, to, value) => {
         console.log(`${from} -> ${to} ${ethers.formatUnits(ethers.getBigInt(value), 6)}`);
+    });
+
+    contractUSDT.on('Transfer', (res) => {
+        console.log("---------------只打印了第一个参数");
+        console.log(res);
     });
 }
 
